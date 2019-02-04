@@ -14,12 +14,19 @@ git clone https://github.com/lovit/petition_dataset.git
 
 ## Fetch
 
-설치된 패키지는 데이터를 가지고 있지 않습니다. `fetch` 를 이용하여 데이터를 다운로드 받습니다.
+설치된 패키지는 데이터를 가지고 있지 않습니다. `fetch` 를 이용하여 데이터를 다운로드 받습니다. 다운로드 기본 위치는 패키지가 설치된 위치입니다.
 
 ```python
 from petitions_dataset import fetch
 
 fetch()
+```
+
+다운로드 위치를 설정할 수 있습니다.
+
+```python
+data_dir = '/abc/def'
+fetch(data_dir)
 ```
 
 ## Usage
@@ -30,7 +37,7 @@ fetch()
 from petitions_dataset import Petitions
 
 petitions = Petitions()
-petitions = Petitions(data_dir='./tmp')
+petitions = Petitions(data_dir)
 ```
 
 Iteration 시 yield 되는 항목을 설정할 수 있습니다. 설정 가능한 항목은 아래와 같습니다.
