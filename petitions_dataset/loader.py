@@ -1,6 +1,7 @@
 from glob import glob
 import json
 import os
+from .utils import installpath
 
 
 class Petitions:
@@ -17,7 +18,7 @@ class Petitions:
 
     def __init__(self, data_dir=None, begin_yymm='2017-08', end_yymm='2018-08'):
         if data_dir is None:
-            data_dir = './'
+            data_dir = '{}/data/'.format(installpath)
         data_dir = os.path.abspath(data_dir)
 
         def match(path):
