@@ -34,6 +34,7 @@ class Petitions:
 
         self.paths = paths
         self.set_keys()
+        self._len = 0 # initialize length
 
     def _check_keys(self, keys):
         availables = {
@@ -100,3 +101,19 @@ class Petitions:
                         yield petition[keys]
                     else:
                         yield tuple(petition[k] for k in keys)
+
+    def __len__(self):
+        """
+        It returns number of petitions
+        """
+        if self._len > 0:
+            return self._len
+
+        num = 0
+        for path in self.paths:
+            with open(path, encoding='utf-8') as f:
+                for i, _ in enumerate(f):
+                    continue
+                num += (i + 1)
+        self._len = num
+        return self._len
