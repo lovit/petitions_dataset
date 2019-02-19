@@ -33,10 +33,16 @@ def main():
     paths = glob('{}/*.json'.format(json_directory))
     paths = sorted(paths, key=lambda x:int(x.split('/')[-1][:-5]))
 
+    n = len(paths)
+    print('{} files are found'.format(n))
+
     fname = ''
     temps = []
 
-    for path in paths:
+    for i, path in enumerate(paths):
+        if i % 10000 == 0:
+            print('sorting json files {} / {} ...'.format(i, n))
+
         # read json
         json_obj = read_json(path)
 
@@ -63,6 +69,8 @@ def main():
 
         fname = yymm
         temps.append(json_strf)
+
+    print('sorting {} json files have been done.'.format(n))
 
     if temps:
         write(output_directory, fname, temps)
