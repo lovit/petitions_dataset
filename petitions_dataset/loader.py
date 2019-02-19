@@ -15,7 +15,8 @@ class Petitions:
     -----
             >>> from petitions_dataset import Petitions
 
-            >>> petitions = Petitions()
+            >>> petitions = Petitions() # defaul period
+            >>> petitions = Petitions(begin_date='2017-08-01', end_date='2018-12-31') # set specific period
             >>> petitions.set_keys('category', 'title', 'content')
             >>> for category, title, content in petitions:
             >>>    # do something
@@ -40,7 +41,7 @@ class Petitions:
             filenames.add('petitions_{}'.format(yymm))
             date += timedelta(days=1)
 
-        paths = ['{}/{}'.format(data_dir, name) for name in filenames]
+        paths = ['{}/{}'.format(data_dir, name) for name in sorted(filenames)]
         if not paths:
             print('Not founded matched petitions in {} ({} - {})'.format(
                 data_dir, begin_yymm, end_yymm))
