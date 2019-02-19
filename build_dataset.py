@@ -20,7 +20,7 @@ def write(output_directory, fname, temps):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--json_directory', type=str, default='../petitions_scraper/output', help='JSON storage directory')
-    parser.add_argument('--output_directory', type=str, default='../petitions_dataset_', help='Petitions archive directory')
+    parser.add_argument('--output_directory', type=str, default='./data/', help='Petitions archive directory')
     parser.add_argument('--begin_yymm', type=str, default='2018-09', help='JSON storage directory')
     parser.add_argument('--end_yymm', type=str, default='2018-08', help='JSON storage directory')
 
