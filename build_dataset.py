@@ -26,12 +26,14 @@ def main():
     parser.add_argument('--output_directory', type=str, default='../petitions_archive/', help='Petitions archive directory')
     parser.add_argument('--begin_yymm', type=str, default='2018-09', help='JSON storage directory')
     parser.add_argument('--end_yymm', type=str, default='2018-08', help='JSON storage directory')
+    parser.add_argument('--compress', dest=compress, action='store_true')
 
     args = parser.parse_args()
     json_directory = args.json_directory
     output_directory = args.output_directory
     begin_yymm = args.begin_yymm
     end_yymm = args.end_yymm
+    compress = args.compress
 
     paths = glob('{}/*.json'.format(json_directory))
     paths = sorted(paths, key=lambda x:int(x.split('/')[-1][:-5]))
@@ -69,12 +71,13 @@ def main():
         # write dump data
         if fname != yymm and temps:
             source = write(output_directory, fname, temps)
-            zippath = source + '.zip'
-            zip_instance = zipfile.ZipFile(zippath, 'w')
-            zip_instance.write(source, compress_type=zipfile.ZIP_DEFLATED)
-            print('compressed {}'.format(source))
-            os.remove(source)
-            temps = []
+            if compress:
+                zippath = source + '.zip'
+                zip_instance = zipfile.ZipFile(zippath, 'w')
+                zip_instance.write(source, compress_type=zipfile.ZIP_DEFLATED)
+                print('compressed {}'.format(source))
+                os.remove(source)
+                temps = []
 
         fname = yymm
         temps.append(json_strf)
@@ -83,11 +86,12 @@ def main():
 
     if temps:
         source = write(output_directory, fname, temps)
-        zippath = source + '.zip'
-        zip_instance = zipfile.ZipFile(zippath, 'w')
-        zip_instance.write(source, compress_type=zipfile.ZIP_DEFLATED)
-        print('compressed {}'.format(source))
-        os.remove(source)
+        if compress:
+            zippath = source + '.zip'
+            zip_instance = zipfile.ZipFile(zippath, 'w')
+            zip_instance.write(source, compress_type=zipfile.ZIP_DEFLATED)
+            print('compressed {}'.format(source))
+            os.remove(source)
 
     files = glob('{}/petitions_*'.format(output_directory))
     files = sorted([p.split('/')[-1] for p in files])
