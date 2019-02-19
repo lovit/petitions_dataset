@@ -1,6 +1,7 @@
 import argparse
 import json
 from glob import glob
+import zipfile
 
 
 def read_json(path):
@@ -77,9 +78,19 @@ def main():
 
     files = glob('{}/petitions_*'.format(output_directory))
     files = sorted([p.split('/')[-1] for p in files])
+    files = [p for p in files if p[-4:] == '.zip']
     with open('{}/files'.format(output_directory), 'w', encoding='utf-8') as f:
         for p in files:
             f.write('{}\n'.format(p))
+
+    # zip
+    files = glob('{}/petitions_*'.format(output_directory))
+    files = [p for p in files if p[-4:] != '.zip' and p[-5:] != 'files']
+    for filepath in files:
+        zippath = source + '.zip'
+        jungle_zip = zipfile.ZipFile(zippath, 'w')
+        jungle_zip.write(filepath, compress_type=zipfile.ZIP_DEFLATED)
+        print('compressed {}'.format(filepath))
 
 if __name__ == '__main__':
     main()
