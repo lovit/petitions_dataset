@@ -74,6 +74,7 @@ def main():
             zip_instance.write(source, compress_type=zipfile.ZIP_DEFLATED)
             print('compressed {}'.format(source))
             os.remove(source)
+            temps = []
 
         fname = yymm
         temps.append(json_strf)
