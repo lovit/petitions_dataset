@@ -94,7 +94,10 @@ def main():
 
     files = glob('{}/petitions_*'.format(output_directory))
     files = sorted([p.split('/')[-1] for p in files])
-    files = [p for p in files if p[-4:] == '.zip']
+    if compress:
+        files = [p for p in files if p[-4:] == '.zip']
+    else:
+        files = [p for p in files if p[-4:] != '.zip']
     with open('{}/files'.format(output_directory), 'w', encoding='utf-8') as f:
         for p in files:
             f.write('{}\n'.format(p))
