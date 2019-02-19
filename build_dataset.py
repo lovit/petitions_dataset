@@ -81,7 +81,12 @@ def main():
     print('sorting {} json files have been done.'.format(n))
 
     if temps:
-        write(output_directory, fname, temps)
+        source = write(output_directory, fname, temps)
+        zippath = source + '.zip'
+        zip_instance = zipfile.ZipFile(zippath, 'w')
+        zip_instance.write(source, compress_type=zipfile.ZIP_DEFLATED)
+        print('compressed {}'.format(source))
+        os.remove(source)
 
     files = glob('{}/petitions_*'.format(output_directory))
     files = sorted([p.split('/')[-1] for p in files])
