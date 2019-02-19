@@ -20,6 +20,13 @@ def write(output_directory, fname, temps):
     print('created {}'.format(fname))
     return path
 
+def compress_and_delete(source):
+    zippath = source + '.zip'
+    zip_instance = zipfile.ZipFile(zippath, 'w')
+    zip_instance.write(source, compress_type=zipfile.ZIP_DEFLATED)
+    print('compressed {}'.format(source))
+    os.remove(source)
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--json_directory', type=str, default='../petitions_scraper/output', help='JSON storage directory')
@@ -72,12 +79,8 @@ def main():
         if fname != yymm and temps:
             source = write(output_directory, fname, temps)
             if compress:
-                zippath = source + '.zip'
-                zip_instance = zipfile.ZipFile(zippath, 'w')
-                zip_instance.write(source, compress_type=zipfile.ZIP_DEFLATED)
-                print('compressed {}'.format(source))
-                os.remove(source)
-                temps = []
+                compress_and_delete(source)
+            temps = []
 
         fname = yymm
         temps.append(json_strf)
@@ -87,11 +90,7 @@ def main():
     if temps:
         source = write(output_directory, fname, temps)
         if compress:
-            zippath = source + '.zip'
-            zip_instance = zipfile.ZipFile(zippath, 'w')
-            zip_instance.write(source, compress_type=zipfile.ZIP_DEFLATED)
-            print('compressed {}'.format(source))
-            os.remove(source)
+            compress_and_delete(source)
 
     files = glob('{}/petitions_*'.format(output_directory))
     files = sorted([p.split('/')[-1] for p in files])
