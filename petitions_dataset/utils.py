@@ -5,7 +5,7 @@ from glob import glob
 
 installpath = os.path.dirname(os.path.realpath(__file__))
 wget_headers = {'user-agent': 'Wget/1.16 (linux-gnu)'}
-remote_url = 'https://raw.githubusercontent.com/lovit/petitions_dataset_/master/'
+remote_url = 'https://raw.githubusercontent.com/lovit/petitions_archive/master/'
 
 def fetch(data_dir=None):
     """
