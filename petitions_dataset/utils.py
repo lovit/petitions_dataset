@@ -1,3 +1,5 @@
+import copy
+from datetime import datetime, timedelta
 import os
 import requests
 from glob import glob
@@ -75,3 +77,19 @@ def download_a_file(url, fname):
     except Exception as e:
         print(e)
         return False
+
+def convert_str_date_to_datetime(string_date):
+    try:
+        return datetime.strptime(string_date, '%Y-%m-%d')
+    except Exception as e:
+        raise ValueError('Failed to Convert String to Datetime %s' % str(e))
+
+def is_first_day_of_a_month(date):
+    d = copy.deepcopy(date)
+    d -= timedelta(days=1)
+    return d.month != date.month
+
+def is_last_day_of_a_month(date):
+    d = copy.deepcopy(date)
+    d += timedelta(days=1)
+    return d.month != date.month
