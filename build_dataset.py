@@ -1,6 +1,7 @@
 import argparse
 import json
 from glob import glob
+import os
 import zipfile
 
 
@@ -17,6 +18,7 @@ def write(output_directory, fname, temps):
         for row in temps:
             f.write('{}\n'.format(row))
     print('created {}'.format(fname))
+    return path
 
 def main():
     parser = argparse.ArgumentParser()
@@ -66,7 +68,12 @@ def main():
 
         # write dump data
         if fname != yymm and temps:
-            write(output_directory, fname, temps)
+            source = write(output_directory, fname, temps)
+            zippath = source + '.zip'
+            zip_instance = zipfile.ZipFile(zippath, 'w')
+            zip_instance.write(source, compress_type=zipfile.ZIP_DEFLATED)
+            print('compressed {}'.format(source))
+            os.remove(source)
 
         fname = yymm
         temps.append(json_strf)
@@ -83,14 +90,6 @@ def main():
         for p in files:
             f.write('{}\n'.format(p))
 
-    # zip
-    files = glob('{}/petitions_*'.format(output_directory))
-    files = [p for p in files if p[-4:] != '.zip' and p[-5:] != 'files']
-    for filepath in files:
-        zippath = source + '.zip'
-        jungle_zip = zipfile.ZipFile(zippath, 'w')
-        jungle_zip.write(filepath, compress_type=zipfile.ZIP_DEFLATED)
-        print('compressed {}'.format(filepath))
 
 if __name__ == '__main__':
     main()
