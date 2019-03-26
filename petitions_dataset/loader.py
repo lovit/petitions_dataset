@@ -85,7 +85,6 @@ class Petitions:
         if isinstance(keys, str):
             keys = [keys]
 
-        keys = [key for key in sorted(keys)]
         if not self._check_keys(keys):
             raise ValueError('Check keys')
         if len(keys) == 1:
