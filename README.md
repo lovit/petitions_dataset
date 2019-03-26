@@ -62,7 +62,7 @@ Iteration 시 yield 되는 항목을 설정할 수 있습니다. 설정 가능�
 항목을 설정하면 설정된 값들이 tuple 의 형태로 출력됩니다.
 
 ```python
-petitions.set_keys('date', 'category', 'title')
+petitions.set_keys('begin', 'category', 'title')
 
 for date, category, title in petitions:
     print(date, category, title)
