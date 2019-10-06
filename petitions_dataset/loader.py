@@ -42,9 +42,10 @@ class Petitions:
             date += timedelta(days=1)
 
         paths = ['{}/{}'.format(data_dir, name) for name in sorted(filenames)]
+        paths = [path for path in paths if os.path.exists(path)]
         if not paths:
             print('Not founded matched petitions in {} ({} - {})'.format(
-                data_dir, begin_yymm, end_yymm))
+                data_dir, begin_date, end_date))
             print('check directory or use fetch()')
 
         self.paths = paths
