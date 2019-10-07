@@ -9,7 +9,14 @@
 설치는 git clone 으로 할 수 있습니다.
 
 ```
-git clone https://github.com/lovit/petition_dataset.git
+git clone https://github.com/lovit/petitions_dataset.git
+```
+
+git clone 이후, setup.py 을 이용하여 패키지를 설치할 수 있습니다.
+
+```
+cd petitions_dataset
+python setup.py install
 ```
 
 ## Fetch
@@ -38,6 +45,12 @@ from petitions_dataset import Petitions
 
 petitions = Petitions()
 petitions = Petitions(data_dir)
+```
+
+혹은 다음의 repository 를 clone 하셔도 됩니다.
+
+```
+git clone https://github.com/lovit/petitions_archive.git
 ```
 
 청원의 개수를 확인할 수 있습니다.

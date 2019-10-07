@@ -8,7 +8,7 @@ from glob import glob
 installpath = os.path.dirname(os.path.realpath(__file__))
 wget_headers = {'user-agent': 'Wget/1.16 (linux-gnu)'}
 remote_url = 'https://raw.githubusercontent.com/lovit/petitions_archive/master/'
-
+    
 def fetch(data_dir=None):
     """
     Argument
@@ -16,6 +16,21 @@ def fetch(data_dir=None):
     data_dir : str
         Data storage directory
     """
+
+    action = None
+    while action is None:
+        message = input("It needs about 0.65 GB storage. Continue to download? ([Y]es, [N]o)\n")
+        message = message.lower()
+        if message == 'no' or message == 'n':
+            action = 'no'
+        if message == 'yes' or message == 'y':
+            action = 'yes'
+        else:
+            print("Insert yes or no")
+
+    if action == 'no':
+        print("Stop downloading")
+        return
 
     if data_dir is None:
         data_dir = '{}/data/'.format(installpath)
