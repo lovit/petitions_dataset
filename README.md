@@ -36,6 +36,12 @@ data_dir='./downloaded_petitions'
 fetch(data_dir)
 ```
 
+혹은 다음의 repository 를 clone 하셔도 됩니다.
+
+```
+git clone https://github.com/lovit/petitions_archive.git
+```
+
 ## Usage
 
 다운로드 받은 데이터 폴더 위치를 `data_dir` 에 입력할 수 있습니다.
@@ -45,12 +51,6 @@ from petitions_dataset import Petitions
 
 petitions = Petitions()
 petitions = Petitions(data_dir)
-```
-
-혹은 다음의 repository 를 clone 하셔도 됩니다.
-
-```
-git clone https://github.com/lovit/petitions_archive.git
 ```
 
 청원의 개수를 확인할 수 있습니다.
