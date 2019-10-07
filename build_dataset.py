@@ -53,7 +53,7 @@ def main():
 
     for i, path in enumerate(paths):
         if i % 10000 == 0:
-            print('sorting json files {} / {} ...'.format(i, n))
+            print('scanning json files {} / {} ...'.format(i, n))
 
         # read json
         json_obj = read_json(path)
@@ -85,7 +85,7 @@ def main():
         fname = yymm
         temps.append(json_strf)
 
-    print('sorting {} json files have been done.'.format(n))
+    print('Created petitions data from {} json files'.format(n))
 
     if temps:
         source = write(output_directory, fname, temps)
